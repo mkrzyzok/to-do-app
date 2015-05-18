@@ -13,11 +13,31 @@ var App = React.createClass({
   },
 
   render: function() {
-    console.log(this.state.items);
-    return(
+    return (
       <div>
-        <h1>What to do in my awesome day time?</h1>
+        <AppBanner />
+        <AppList items={ this.state.items }/>
       </div>
+    );
+  }
+});
+
+var AppList = React.createClass({
+  showItem: function(item, index) {
+    return <li key={index}>{item.text}</li>;
+  },
+
+  render: function() {
+    return (
+      <ul>{ this.props.items.map(this.showItem) }</ul>
+    );
+  }
+});
+
+var AppBanner = React.createClass({
+  render: function() {
+    return (
+      <h1>What to do in my awesome day time?</h1>
     );
   }
 });
