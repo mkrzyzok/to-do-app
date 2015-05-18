@@ -1,9 +1,23 @@
 
 var App = React.createClass({
+
+  mixins: [ReactFireMixin],
+
+  getInitialState: function() {
+    return ({ items: [] });
+  },
+
+  componentWillMount: function() {
+    var FirebaseRef = new Firebase('https://list-to-do-app.firebaseio.com/items');
+    this.bindAsArray(FirebaseRef, 'items');
+  },
+
   render: function() {
-    console.log('TEST');
+    console.log(this.state.items);
     return(
-      <h1>test</h1>
+      <div>
+        <h1>What to do in my awesome day time?</h1>
+      </div>
     );
   }
 });
