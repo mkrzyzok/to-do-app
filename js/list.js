@@ -21,7 +21,8 @@ var App = React.createClass({
   addItem: function() {
     if(this.state.text.trim().length !== 0)
     this.firebaseRefs.items.push({
-      text: this.state.text
+      text: this.state.text,
+      check: false
     });
     this.setState({text: ''});
   },
@@ -29,12 +30,19 @@ var App = React.createClass({
     console.log('Delete: ' + key);
     FirebaseRef.child(key).remove();
   },
+  changeState: function(key, state) {
+    var newState = !state;
+    console.log('Change state:' + key + ' | ' + newState);
+    FirebaseRef.child(key).update({
+      check: newState
+    });
+  },
   render: function() {
 
     return (
       <div>
         <AppBanner />
-        <AppList deleteItem={ this.deleteItem } items={ this.state.items } />
+        <AppList changeState={ this.changeState } deleteItem={ this.deleteItem } items={ this.state.items } />
         <AppForm addItem={ this.addItem } setText={ this.setText } text={ this.state.text } />
       </div>
     );
@@ -42,12 +50,23 @@ var App = React.createClass({
 });
 
 var AppList = React.createClass({
-  handleClick: function(key) {
+  handleClick: function(obj) {
+    this.props.changeState(obj.id, obj.check);
+  },
+  handleDelete: function(key) {
     this.props.deleteItem(key);
   },
   showItems: function(item, index) {
     return (
-      <li onClick={ this.handleClick.bind(this, item.$id) } key={item.$id}>{item.text}</li>
+      <li>
+        <button onClick={ this.handleDelete.bind(this, item.$id) }>x</button>
+        <span
+          style={ item.check ? {textDecoration: 'line-through'} : {textDecoration: 'none'} } 
+          onClick={ this.handleClick.bind(this, { id: item.$id, check: item.check }) }
+          key={item.$id}>
+            {item.text}
+        </span>
+      </li>
     );
   },
   render: function() {
