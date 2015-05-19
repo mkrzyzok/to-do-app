@@ -1,4 +1,86 @@
-$color_main: #5AAFFF
+$color1: #ECECEA
+$color2: #558C89
+$color3: #74AFAD
+$color4: #D9853B
+$color5: #FFFFFF
+
+//mixin
+=box-sizing($sizing)
+    -webkit-box-sizing: $sizing
+    -moz-box-sizing: $sizing
+    box-sizing: $sizing
+
+*
+    font-family: 'Lato', sans-serif
+    font-weight: 400
+    letter-spacing: 0.5px
 
 body
-    color: $color_main
+    background: $color1
+    color: $color5
+    margin: 0 auto
+    margin-top: 40px
+
+    word-wrap: break-word
+    width: 900px
+
+h1
+    font-weight: 900
+    letter-spacing: -1.5px
+    color: $color5
+    margin-bottom: 40px
+
+ul
+    list-style-type: none
+    -webkit-padding-start: 0px
+
+.textChecked
+    color: $color2
+    text-decoration: line-through
+
+.textNormal
+    margin-left: 50px
+    padding: 4px
+
+#app
+    background: $color3
+
+    padding: 50px
+    padding-top: 2px
+
+.item
+    margin: 10px
+
+.off
+    display: none
+
+.button
+    border: none
+    background: $color2
+    color: $color5
+
+    &.delete
+        background: none
+        color: $color5
+
+        margin-bottom: -1px
+        margin-right: 10px
+
+    &.add
+        +box-sizing(border-box)
+
+        font-size: 16px
+
+        width: 100%
+        padding: 12px
+
+.inputBox
+    +box-sizing(border-box)
+
+    color: $color2
+    font-size: 16px
+
+    margin-top: 40px
+    padding: 10px
+    text-align: center
+    width: 100%

@@ -41,7 +41,7 @@ var App = React.createClass({
 
     return (
       <div>
-        <AppBanner />
+        <AppBanner/>
         <AppList changeState={ this.changeState } deleteItem={ this.deleteItem } items={ this.state.items } />
         <AppForm addItem={ this.addItem } setText={ this.setText } text={ this.state.text } />
       </div>
@@ -58,10 +58,10 @@ var AppList = React.createClass({
   },
   showItems: function(item, index) {
     return (
-      <li>
-        <button onClick={ this.handleDelete.bind(this, item.$id) }>x</button>
+      <li className='item'>
+        <button className={ item.check ? 'button delete' : 'off' } onClick={ this.handleDelete.bind(this, item.$id) }>x</button>
         <span
-          style={ item.check ? {textDecoration: 'line-through'} : {textDecoration: 'none'} } 
+          className={ item.check ? 'textChecked' : 'textNormal' } 
           onClick={ this.handleClick.bind(this, { id: item.$id, check: item.check }) }
           key={item.$id}>
             {item.text}
@@ -87,8 +87,8 @@ var AppForm = React.createClass({
   render: function() {
     return (
       <form onSubmit={this.onSubmit}>
-        <input onChange={this.onChange} type='text' value={this.props.text} />
-        <input type='submit' value='Add' />
+        <input className='inputBox' onChange={this.onChange} type='text' value={this.props.text} />
+        <input className='button add' type='submit' value='Add' />
       </form>
     );
   }
