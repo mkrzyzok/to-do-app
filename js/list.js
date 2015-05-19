@@ -1,4 +1,10 @@
 
+/*!
+ * TO DO APP
+ */
+
+var FirebaseRef = new Firebase('https://list-to-do-app.firebaseio.com/items');
+
 var App = React.createClass({
 
   mixins: [ReactFireMixin],
@@ -10,7 +16,6 @@ var App = React.createClass({
     this.setState({text: value});
   },
   componentWillMount: function() {
-    var FirebaseRef = new Firebase('https://list-to-do-app.firebaseio.com/items');
     this.bindAsArray(FirebaseRef, 'items');
   },
   addItem: function() {
@@ -20,11 +25,16 @@ var App = React.createClass({
     });
     this.setState({text: ''});
   },
+  deleteItem: function(key) {
+    console.log('Delete: ' + key);
+    FirebaseRef.child(key).remove();
+  },
   render: function() {
+
     return (
       <div>
         <AppBanner />
-        <AppList items={ this.state.items } />
+        <AppList deleteItem={ this.deleteItem } items={ this.state.items } />
         <AppForm addItem={ this.addItem } setText={ this.setText } text={ this.state.text } />
       </div>
     );
@@ -32,9 +42,12 @@ var App = React.createClass({
 });
 
 var AppList = React.createClass({
+  handleClick: function(key) {
+    this.props.deleteItem(key);
+  },
   showItems: function(item, index) {
     return (
-      <li key={index}>{item.text}</li>
+      <li onClick={ this.handleClick.bind(this, item.$id) } key={item.$id}>{item.text}</li>
     );
   },
   render: function() {
