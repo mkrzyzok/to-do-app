@@ -24,6 +24,9 @@ body
     word-wrap: break-word
     width: 900px
 
+    @media screen and (max-width: 900px)
+        width: 100%
+
 h1
     font-weight: 900
     letter-spacing: -1.5px
@@ -77,6 +80,7 @@ ul
 .inputBox
     +box-sizing(border-box)
 
+    border: 1px solid $color5
     color: $color2
     font-size: 16px
 
