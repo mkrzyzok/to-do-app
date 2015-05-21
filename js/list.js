@@ -3,6 +3,9 @@
  * TO DO APP
  */
 
+var React = require('react/addons');
+var Firebase = require('firebase');
+var ReactFireMixin = require('./reactFireWithChange');
 var FirebaseRef = new Firebase('https://list-to-do-app.firebaseio.com/items');
 
 var App = React.createClass({
@@ -102,4 +105,14 @@ var AppBanner = React.createClass({
   }
 });
 
-React.render(<App />, document.getElementById('app'));
+module.exports = App;
+
+function run() {
+  React.render(<App />, document.getElementById('app'));
+}
+
+if (window.addEventListener) {
+  window.addEventListener('DOMContentLoaded', run);
+} else {
+  window.attachEvent('onload', run);
+}
